@@ -1,0 +1,658 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;1,400&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#111827;--ink2:#374151;--muted:#6B7280;--hint:#9CA3AF;
+  --line:#E5E9EF;--line2:#D1D8E0;
+  --blue:#1D4ED8;--blue-s:#EFF4FF;--blue-m:#BFCFFF;--blue-d:#1239A6;
+  --teal:#0D9488;--teal-s:#F0FDFB;--teal-m:#99E6DF;
+  --amber:#B45309;--amber-s:#FFFBEB;--amber-m:#FCD34D;
+  --green:#15803D;--green-s:#F0FDF4;--green-m:#BBF7D0;
+  --red:#DC2626;--red-s:#FEF2F2;
+  --bg:#F7F9FC;--card:#FFFFFF;
+  --ff:'Sora',sans-serif;--fd:'Playfair Display',serif;
+}
+body{font-family:var(--ff);background:var(--bg);color:var(--ink);font-size:13px;line-height:1.5}
+
+.app{min-height:100vh}
+
+/* NAV */
+.nav{background:var(--card);border-bottom:1px solid var(--line);height:62px;display:flex;align-items:center;padding:0 2.5rem;gap:2.5rem}
+.brand{display:flex;align-items:center;gap:11px}
+.brand-mark{width:36px;height:36px;background:var(--blue);border-radius:9px;display:flex;align-items:center;justify-content:center}
+.brand-mark svg{width:20px;height:20px;fill:white}
+.brand-text{line-height:1.1}
+.brand-name{font-family:var(--fd);font-size:17px;color:var(--ink);font-style:italic;letter-spacing:-.2px}
+.brand-sub{font-size:10px;color:var(--hint);letter-spacing:.4px;text-transform:uppercase}
+.nav-menu{display:flex;gap:2rem;margin-left:auto}
+.nav-menu a{font-size:12.5px;font-weight:500;color:var(--muted);text-decoration:none;transition:color .15s;letter-spacing:.1px}
+.nav-menu a:hover,.nav-menu a.cur{color:var(--ink)}
+.nav-actions{display:flex;align-items:center;gap:10px;margin-left:1rem}
+.btn-ghost{background:none;border:1px solid var(--line2);border-radius:8px;padding:7px 15px;font-size:12px;font-weight:500;color:var(--ink2);cursor:pointer;font-family:var(--ff);transition:all .15s}
+.btn-ghost:hover{border-color:var(--blue);color:var(--blue)}
+.btn-solid{background:var(--blue);border:1px solid var(--blue);border-radius:8px;padding:7px 15px;font-size:12px;font-weight:500;color:white;cursor:pointer;font-family:var(--ff);transition:background .15s}
+.btn-solid:hover{background:var(--blue-d)}
+
+/* HERO */
+.hero{background:var(--card);border-bottom:1px solid var(--line);padding:2.2rem 2.5rem 1.8rem}
+.hero-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.4rem}
+.hero-title{font-family:var(--fd);font-size:28px;color:var(--ink);font-weight:500;line-height:1.15;margin-bottom:5px}
+.hero-title em{font-style:italic;color:var(--blue)}
+.hero-desc{font-size:12.5px;color:var(--muted);font-weight:400}
+.hero-stats{display:flex;gap:2rem}
+.hstat{text-align:right}
+.hstat-val{font-size:19px;font-weight:600;color:var(--blue)}
+.hstat-lbl{font-size:10.5px;color:var(--hint);margin-top:1px}
+
+/* JOURNEY TYPE TABS */
+.jtabs{display:flex;gap:6px}
+.jtab{padding:7px 18px;border:1px solid var(--line2);border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;background:var(--card);color:var(--muted);transition:all .15s;font-family:var(--ff)}
+.jtab.on,.jtab:hover{background:var(--blue);border-color:var(--blue);color:white}
+
+/* MAIN LAYOUT */
+.layout{display:grid;grid-template-columns:1fr 310px;gap:1.5rem;padding:1.6rem 2.5rem;max-width:1120px;margin:0 auto}
+
+/* BOOKING PANEL */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.panel-header{padding:1.2rem 1.5rem;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+.panel-title{font-size:13px;font-weight:600;color:var(--ink);display:flex;align-items:center;gap:8px}
+.panel-title .dot{width:7px;height:7px;border-radius:50%;background:var(--blue)}
+.panel-body{padding:1.5rem}
+
+/* ROUTE WIDGET */
+.route-row{display:flex;align-items:stretch;background:var(--blue-s);border:1px solid var(--blue-m);border-radius:12px;margin-bottom:1.4rem;overflow:hidden}
+.route-col{flex:1;padding:14px 18px}
+.route-col+.route-col{border-left:1px solid var(--blue-m)}
+.route-code{font-size:26px;font-weight:600;color:var(--blue-d);letter-spacing:-1.5px;line-height:1}
+.route-city{font-size:11px;color:var(--muted);margin-top:3px;font-weight:400}
+.route-station{font-size:10.5px;color:var(--hint);margin-top:1px}
+.route-mid-col{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px 12px;gap:5px;flex-shrink:0}
+.route-dur{font-size:10px;color:var(--hint);letter-spacing:.3px}
+.route-arrow-wrap{position:relative;width:70px;height:12px;display:flex;align-items:center}
+.route-arrow-line{flex:1;height:1px;background:var(--blue-m)}
+.arrow-head{width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-left:6px solid var(--blue);flex-shrink:0}
+.swap-btn{width:26px;height:26px;border-radius:50%;background:white;border:1px solid var(--line2);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--blue);font-size:12px;transition:all .15s;flex-shrink:0}
+.swap-btn:hover{background:var(--blue);color:white;border-color:var(--blue)}
+
+/* FORM GRID */
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.2rem}
+.fg{display:flex;flex-direction:column;gap:5px}
+.fl{font-size:10.5px;font-weight:600;color:var(--hint);text-transform:uppercase;letter-spacing:.7px}
+.fi{border:1px solid var(--line);border-radius:8px;padding:9px 12px;font-size:13px;font-family:var(--ff);color:var(--ink);background:var(--bg);outline:none;transition:border .15s;width:100%}
+.fi:focus{border-color:var(--blue);background:var(--card)}
+.fsel{border:1px solid var(--line);border-radius:8px;padding:9px 12px;font-size:13px;font-family:var(--ff);color:var(--ink);background:var(--bg);outline:none;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%239CA3AF' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;width:100%}
+
+/* CLASS SELECTOR */
+.class-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.3rem}
+.ccard{border:1.5px solid var(--line);border-radius:11px;padding:13px 12px;cursor:pointer;transition:all .15s;background:var(--card)}
+.ccard:hover{border-color:var(--blue-m)}
+.ccard.on{border-color:var(--blue);background:var(--blue-s)}
+.cc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}
+.cc-icon{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center}
+.cc-icon.std{background:#EFF4FF}
+.cc-icon.com{background:#F0FDFB}
+.cc-icon.pre{background:#FFFBEB}
+.cc-icon svg{width:14px;height:14px}
+.cc-check{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--line2);display:flex;align-items:center;justify-content:center;transition:all .15s}
+.ccard.on .cc-check{background:var(--blue);border-color:var(--blue)}
+.cc-check svg{width:8px;height:8px;fill:white;display:none}
+.ccard.on .cc-check svg{display:block}
+.cc-name{font-size:12.5px;font-weight:600;color:var(--ink)}
+.cc-price{font-size:15px;font-weight:600;color:var(--blue);margin-top:2px}
+.cc-amenities{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap}
+.cc-pill{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:2px 7px;font-size:10px;color:var(--muted)}
+.ccard.on .cc-pill{background:white}
+
+/* SEARCH BTN */
+.search-btn{width:100%;background:var(--blue);color:white;border:none;border-radius:10px;padding:13px;font-size:13.5px;font-family:var(--ff);font-weight:600;cursor:pointer;transition:background .15s;display:flex;align-items:center;justify-content:center;gap:9px}
+.search-btn:hover{background:var(--blue-d)}
+.search-btn svg{width:15px;height:15px}
+
+/* RESULTS */
+.results-panel{display:none;margin-top:1.4rem}
+.results-panel.show{display:block}
+.results-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+.results-title{font-size:13px;font-weight:600;color:var(--ink)}
+.results-sub{font-size:11.5px;color:var(--muted)}
+.sort-row{display:flex;gap:6px}
+.sort-pill{padding:4px 10px;border:1px solid var(--line);border-radius:20px;font-size:11px;color:var(--muted);cursor:pointer;background:var(--card);font-family:var(--ff);transition:all .15s}
+.sort-pill.on,.sort-pill:hover{background:var(--ink);border-color:var(--ink);color:white}
+
+.rcard{border:1px solid var(--line);border-radius:12px;padding:15px 18px;margin-bottom:10px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all .18s;background:var(--card)}
+.rcard:hover{border-color:var(--blue-m);background:var(--blue-s)}
+.rcard.on{border-color:var(--blue);background:var(--blue-s)}
+.rc-operator{width:36px;height:36px;border-radius:9px;background:var(--bg);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;font-weight:700;color:var(--muted);letter-spacing:-.5px}
+.rc-times{min-width:80px}
+.rc-dep{font-size:16px;font-weight:600;color:var(--ink)}
+.rc-arr{font-size:11px;color:var(--muted);margin-top:1px}
+.rc-mid{flex:1}
+.rc-dur{font-size:11.5px;font-weight:500;color:var(--ink2)}
+.rc-stops{font-size:11px;color:var(--teal);margin-top:2px}
+.rc-badges{display:flex;gap:5px;margin-top:5px}
+.badge{font-size:10px;font-weight:500;padding:2px 8px;border-radius:10px}
+.badge.eco{background:var(--green-s);color:var(--green)}
+.badge.fast{background:var(--amber-s);color:var(--amber)}
+.badge.best{background:var(--blue-s);color:var(--blue-d)}
+.rc-right{text-align:right;flex-shrink:0}
+.rc-price{font-size:18px;font-weight:600;color:var(--ink)}
+.rc-seats{font-size:10.5px;color:var(--muted);margin-top:2px}
+.rc-select{margin-top:6px;background:var(--blue);color:white;border:none;border-radius:7px;padding:5px 12px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--ff);transition:background .15s}
+.rc-select:hover{background:var(--blue-d)}
+.rcard.on .rc-select{background:var(--green);border-radius:7px}
+
+/* SIDEBAR */
+.sidebar{display:flex;flex-direction:column;gap:1.3rem}
+.scard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.3rem}
+.sc-title{font-size:12px;font-weight:600;color:var(--ink);margin-bottom:1rem;display:flex;align-items:center;gap:7px}
+.sc-title .dot{width:6px;height:6px;border-radius:50%;background:var(--blue)}
+
+/* trust items */
+.titem{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--line)}
+.titem:last-child{border-bottom:none;padding-bottom:0}
+.ticon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ticon.b{background:var(--blue-s)}
+.ticon.g{background:var(--green-s)}
+.ticon.a{background:var(--amber-s)}
+.ticon svg{width:14px;height:14px}
+.tt-name{font-size:12px;font-weight:600;color:var(--ink);margin-bottom:2px}
+.tt-sub{font-size:11px;color:var(--muted);line-height:1.45}
+
+/* live status */
+.live-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.live-lbl{font-size:11.5px;color:var(--muted)}
+.live-val{font-size:12px;font-weight:600;color:var(--ink);display:flex;align-items:center;gap:5px}
+.pdot{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pp 2s infinite}
+@keyframes pp{0%,100%{opacity:1}50%{opacity:.3}}
+.brow{display:flex;align-items:center;gap:7px;margin-bottom:6px;font-size:11px;color:var(--muted)}
+.brow span:first-child{min-width:80px;font-size:10.5px}
+.bwrap{flex:1;height:3px;background:var(--bg);border-radius:10px;overflow:hidden;border:1px solid var(--line)}
+.bfill{height:100%;border-radius:10px;transition:width .4s}
+.bfill.b{background:var(--blue)}
+.bfill.t{background:var(--teal)}
+.bpct{min-width:28px;text-align:right;font-weight:600;color:var(--ink2);font-size:11px}
+
+/* booking summary dark card */
+.bscard{background:var(--ink);border-radius:14px;padding:1.3rem;display:none}
+.bscard.show{display:block}
+.bs-eyebrow{font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.8px;margin-bottom:.6rem}
+.bs-route{font-family:var(--fd);font-size:18px;color:white;margin-bottom:2px}
+.bs-detail{font-size:11px;color:rgba(255,255,255,.45);margin-bottom:.9rem}
+.bs-div{height:1px;background:rgba(255,255,255,.08);margin:.8rem 0}
+.bs-row{display:flex;justify-content:space-between;font-size:11.5px;color:rgba(255,255,255,.55);margin-bottom:5px}
+.bs-row.total{font-size:15px;font-weight:600;color:white;margin-bottom:0}
+.qr-box{background:white;border-radius:10px;padding:12px;text-align:center;margin-top:12px}
+.qr-g{display:grid;grid-template-columns:repeat(8,1fr);gap:2px;width:68px;margin:0 auto 6px}
+.qr-c{border-radius:1.5px}
+.qr-lbl{font-size:10.5px;color:var(--hint);font-weight:500}
+.pay-btn{width:100%;background:#15803D;color:white;border:none;border-radius:9px;padding:12px;font-size:13px;font-family:var(--ff);font-weight:600;cursor:pointer;transition:background .15s;margin-top:10px;display:flex;align-items:center;justify-content:center;gap:7px}
+.pay-btn:hover{background:#0f5f2d}
+.pay-btn svg{width:14px;height:14px}
+
+/* toast */
+.toast-wrap{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:center;pointer-events:none;padding-bottom:20px;z-index:999}
+.toast{background:var(--ink);color:white;border-radius:9px;padding:10px 22px;font-size:12.5px;font-weight:500;transform:translateY(50px);opacity:0;transition:all .28s;pointer-events:none}
+.toast.show{transform:translateY(0);opacity:1}
+
+/* step bar */
+.stepbar{display:flex;align-items:center;gap:0;padding:0 1.5rem 1.2rem}
+.step{display:flex;align-items:center;gap:6px}
+.step-n{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--line2);display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:600;color:var(--hint);flex-shrink:0;transition:all .2s}
+.step.done .step-n{background:var(--blue);border-color:var(--blue);color:white}
+.step.cur .step-n{background:var(--card);border-color:var(--blue);color:var(--blue)}
+.step-label{font-size:11.5px;color:var(--hint);font-weight:500}
+.step.done .step-label,.step.cur .step-label{color:var(--ink2)}
+.step-dash{flex:1;height:1px;background:var(--line);margin:0 8px;transition:background .3s}
+.step-dash.done{background:var(--blue)}
+</style>
+
+<div class="app">
+
+<nav class="nav">
+  <div class="brand">
+    <div class="brand-mark">
+      <svg viewBox="0 0 24 24"><path d="M4 16c0 1.1.9 2 2 2s2-.9 2-2-.9-2-2-2-2 .9-2 2zm12 0c0 1.1.9 2 2 2s2-.9 2-2-.9-2-2-2-2 .9-2 2zM3 4h18v2H3zm1 3h16l1 5v2H3v-2l1-5zm1 1-.8 4h15.6L20 8H5z"/></svg>
+    </div>
+    <div class="brand-text">
+      <div class="brand-name">CloudBus</div>
+      <div class="brand-sub">International Transit</div>
+    </div>
+  </div>
+  <nav class="nav-menu">
+    <a href="#" class="cur">Book</a>
+    <a href="#">My Journeys</a>
+    <a href="#">Routes</a>
+    <a href="#">Corporate</a>
+    <a href="#">Help</a>
+  </nav>
+  <div class="nav-actions">
+    <button class="btn-ghost">Sign in</button>
+    <button class="btn-solid">Register</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-top">
+    <div>
+      <div class="hero-title">Book your international<br><em>bus journey</em></div>
+      <div class="hero-desc">Cloud-secured tickets · Tamper-proof QR passes · Live seat availability</div>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-val">2.4M+</div><div class="hstat-lbl">passengers this year</div></div>
+      <div class="hstat"><div class="hstat-val">340</div><div class="hstat-lbl">international routes</div></div>
+      <div class="hstat"><div class="hstat-val">99.97%</div><div class="hstat-lbl">platform uptime</div></div>
+    </div>
+  </div>
+  <div class="jtabs">
+    <button class="jtab on" onclick="setJType(this,'one')">One way</button>
+    <button class="jtab" onclick="setJType(this,'ret')">Return</button>
+    <button class="jtab" onclick="setJType(this,'week')">Weekly pass</button>
+    <button class="jtab" onclick="setJType(this,'month')">Monthly pass</button>
+  </div>
+</div>
+
+<div class="layout">
+  <div>
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title"><div class="dot"></div> Journey details</div>
+        <span style="font-size:11px;color:var(--hint)">All fares in GBP · incl. taxes</span>
+      </div>
+      <div class="panel-body">
+
+        <div class="stepbar">
+          <div class="step done" id="s1"><div class="step-n">1</div><span class="step-label">Route</span></div>
+          <div class="step-dash done"></div>
+          <div class="step cur" id="s2"><div class="step-n">2</div><span class="step-label">Options</span></div>
+          <div class="step-dash" id="d2"></div>
+          <div class="step" id="s3"><div class="step-n">3</div><span class="step-label">Departure</span></div>
+          <div class="step-dash" id="d3"></div>
+          <div class="step" id="s4"><div class="step-n">4</div><span class="step-label">Payment</span></div>
+        </div>
+
+        <div class="route-row">
+          <div class="route-col">
+            <div class="route-code" id="from-code">LON</div>
+            <div class="route-city" id="from-city">London</div>
+            <div class="route-station" id="from-station">Victoria Coach Station, SW1V 1JT</div>
+          </div>
+          <div class="route-mid-col">
+            <div class="route-dur" id="route-dur">~2h 20m</div>
+            <div class="route-arrow-wrap">
+              <div class="route-arrow-line"></div>
+              <div class="arrow-head"></div>
+            </div>
+            <button class="swap-btn" onclick="swapRoute()" title="Swap route">⇆</button>
+          </div>
+          <div class="route-col" style="text-align:right">
+            <div class="route-code" id="to-code">MAN</div>
+            <div class="route-city" id="to-city">Manchester</div>
+            <div class="route-station" id="to-station">Shudehill Interchange, M4 2AF</div>
+          </div>
+        </div>
+
+        <div class="fgrid">
+          <div class="fg">
+            <label class="fl">From city</label>
+            <select class="fsel" id="sel-from" onchange="updateRoute()">
+              <option value="0">London, United Kingdom</option>
+              <option value="1">Paris, France</option>
+              <option value="2">Berlin, Germany</option>
+              <option value="3">Madrid, Spain</option>
+              <option value="4">Rome, Italy</option>
+              <option value="5">Amsterdam, Netherlands</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label class="fl">To city</label>
+            <select class="fsel" id="sel-to" onchange="updateRouteTo()">
+              <option value="0">Manchester, United Kingdom</option>
+              <option value="1">Brussels, Belgium</option>
+              <option value="2">Hamburg, Germany</option>
+              <option value="3">Barcelona, Spain</option>
+              <option value="4">Florence, Italy</option>
+              <option value="5">Rotterdam, Netherlands</option>
+            </select>
+          </div>
+        </div>
+        <div class="fgrid">
+          <div class="fg">
+            <label class="fl">Departure date</label>
+            <input type="date" class="fi" id="dep-date">
+          </div>
+          <div class="fg">
+            <label class="fl">Return date</label>
+            <input type="date" class="fi" id="ret-date" style="opacity:.4" disabled>
+          </div>
+        </div>
+        <div class="fgrid" style="margin-bottom:0">
+          <div class="fg">
+            <label class="fl">Passengers</label>
+            <select class="fsel">
+              <option>1 adult</option>
+              <option>2 adults</option>
+              <option>3 adults</option>
+              <option>1 adult, 1 child</option>
+              <option>Group (4+)</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label class="fl">Railcard / concession</label>
+            <select class="fsel">
+              <option>None</option>
+              <option>16–25 Railcard (1/3 off)</option>
+              <option>Senior (60+)</option>
+              <option>Disabled (50% off)</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="height:1px;background:var(--line);margin:1.3rem 0"></div>
+
+        <div class="sc-title" style="margin-bottom:.9rem"><div class="dot"></div> Seat class</div>
+        <div class="class-row">
+          <div class="ccard on" onclick="selClass(this,22.50,'Standard')">
+            <div class="cc-top">
+              <div class="cc-icon std">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#1D4ED8" stroke-width="2"><path d="M20 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v3M4 22h16M12 17v5M8 17v5M16 17v5M3 13h18v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4Z"/></svg>
+              </div>
+              <div class="cc-check"><svg viewBox="0 0 10 10"><polyline points="2,5 4.5,7.5 8,3" stroke="white" stroke-width="1.5" fill="none"/></svg></div>
+            </div>
+            <div class="cc-name">Standard</div>
+            <div class="cc-price">£22.50</div>
+            <div class="cc-amenities">
+              <span class="cc-pill">Reclining</span>
+              <span class="cc-pill">USB</span>
+            </div>
+          </div>
+          <div class="ccard" onclick="selClass(this,38.00,'Comfort')">
+            <div class="cc-top">
+              <div class="cc-icon com">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#0D9488" stroke-width="2"><path d="M20 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v3M4 22h16M12 17v5M8 17v5M16 17v5M3 13h18v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4Z"/></svg>
+              </div>
+              <div class="cc-check"><svg viewBox="0 0 10 10"><polyline points="2,5 4.5,7.5 8,3" stroke="white" stroke-width="1.5" fill="none"/></svg></div>
+            </div>
+            <div class="cc-name">Comfort</div>
+            <div class="cc-price">£38.00</div>
+            <div class="cc-amenities">
+              <span class="cc-pill">Legroom+</span>
+              <span class="cc-pill">Wi-Fi</span>
+            </div>
+          </div>
+          <div class="ccard" onclick="selClass(this,58.00,'Premium')">
+            <div class="cc-top">
+              <div class="cc-icon pre">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#B45309" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <div class="cc-check"><svg viewBox="0 0 10 10"><polyline points="2,5 4.5,7.5 8,3" stroke="white" stroke-width="1.5" fill="none"/></svg></div>
+            </div>
+            <div class="cc-name">Premium</div>
+            <div class="cc-price">£58.00</div>
+            <div class="cc-amenities">
+              <span class="cc-pill">Lounge</span>
+              <span class="cc-pill">Meal</span>
+              <span class="cc-pill">Wi-Fi</span>
+            </div>
+          </div>
+        </div>
+
+        <button class="search-btn" onclick="doSearch()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Search available departures
+        </button>
+      </div>
+    </div>
+
+    <div class="results-panel" id="results">
+      <div class="results-header">
+        <div>
+          <div class="results-title" id="r-title">Available departures</div>
+          <div class="results-sub" id="r-sub"></div>
+        </div>
+        <div class="sort-row">
+          <button class="sort-pill on" onclick="setSortActive(this)">Earliest</button>
+          <button class="sort-pill" onclick="setSortActive(this)">Cheapest</button>
+          <button class="sort-pill" onclick="setSortActive(this)">Fastest</button>
+        </div>
+      </div>
+      <div id="r-list"></div>
+    </div>
+  </div>
+
+  <div class="sidebar">
+
+    <div class="scard">
+      <div class="sc-title"><div class="dot"></div> Cloud security</div>
+      <div class="titem">
+        <div class="ticon g">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="2" width="14" height="14"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <div class="tt-name">Tamper-proof tickets</div>
+          <div class="tt-sub">QR passes are cryptographically signed and verified on every scan at the gate.</div>
+        </div>
+      </div>
+      <div class="titem">
+        <div class="ticon b">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1D4ED8" stroke-width="2" width="14" height="14"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <div>
+          <div class="tt-name">PCI DSS Level 1 payments</div>
+          <div class="tt-sub">256-bit AES encryption. Card data never stored on our servers.</div>
+        </div>
+      </div>
+      <div class="titem">
+        <div class="ticon a">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#B45309" stroke-width="2" width="14" height="14"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div>
+          <div class="tt-name">Price lock guarantee</div>
+          <div class="tt-sub">Fare is locked at booking time — no surge pricing after confirmation.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scard">
+      <div class="sc-title"><div class="dot" style="background:var(--teal)"></div> Live infrastructure</div>
+      <div class="live-row">
+        <span class="live-lbl">API status</span>
+        <span class="live-val"><span class="pdot"></span> All systems operational</span>
+      </div>
+      <div class="live-row" style="margin-bottom:10px">
+        <span class="live-lbl">Bookings today</span>
+        <span class="live-val" id="bcount">18,241</span>
+      </div>
+      <div style="font-size:10.5px;font-weight:600;color:var(--hint);text-transform:uppercase;letter-spacing:.6px;margin-bottom:7px">Server load</div>
+      <div class="brow"><span>EU West</span><div class="bwrap"><div class="bfill b" id="b1" style="width:38%"></div></div><span class="bpct" id="p1">38%</span></div>
+      <div class="brow"><span>EU Central</span><div class="bwrap"><div class="bfill t" id="b2" style="width:24%"></div></div><span class="bpct" id="p2">24%</span></div>
+      <div class="brow"><span>Auto-scaled</span><div class="bwrap"><div class="bfill b" id="b3" style="width:11%"></div></div><span class="bpct" id="p3">11%</span></div>
+      <div style="border-top:1px solid var(--line);margin-top:10px;padding-top:10px" class="live-row" style="margin-bottom:0">
+        <span class="live-lbl">Uptime (30 days)</span>
+        <span class="live-val" style="color:var(--teal)">99.97%</span>
+      </div>
+    </div>
+
+    <div class="bscard" id="bscard">
+      <div class="bs-eyebrow">Booking summary</div>
+      <div class="bs-route" id="bs-route">London → Manchester</div>
+      <div class="bs-detail" id="bs-detail">—</div>
+      <div class="bs-div"></div>
+      <div class="bs-row"><span>Base fare</span><span id="bs-base">£22.50</span></div>
+      <div class="bs-row"><span>Booking fee</span><span>£1.00</span></div>
+      <div class="bs-row"><span>Digital pass</span><span>£0.50</span></div>
+      <div class="bs-div"></div>
+      <div class="bs-row total"><span>Total</span><span id="bs-total">£24.00</span></div>
+      <div class="qr-box">
+        <div class="qr-g" id="qr-g"></div>
+        <div class="qr-lbl">Scan at boarding gate</div>
+      </div>
+      <button class="pay-btn" onclick="confirmPay()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" width="14" height="14"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        Confirm &amp; pay securely
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast-wrap"><div class="toast" id="toast"></div></div>
+</div>
+
+<script>
+const routes=[
+  {from:'LON',fromCity:'London',fromStation:'Victoria Coach Station, SW1V 1JT',to:'MAN',toCity:'Manchester',toStation:'Shudehill Interchange, M4 2AF',dur:'~2h 20m',base:22.50},
+  {from:'PAR',fromCity:'Paris',fromStation:'Bercy Seine Coach Terminal, 75012',to:'BRU',toCity:'Brussels',toStation:'Gare du Midi Bus Station, 1060',dur:'~3h 30m',base:28.00},
+  {from:'BER',fromCity:'Berlin',fromStation:'ZOB Central Bus Station, 14057',to:'HAM',toCity:'Hamburg',toStation:'ZOB Hamburg, 20099',dur:'~2h 50m',base:19.50},
+  {from:'MAD',fromCity:'Madrid',fromStation:'Estación Sur de Autobuses, 28045',to:'BCN',toCity:'Barcelona',toStation:'Estació del Nord, 08010',dur:'~6h 45m',base:34.00},
+  {from:'ROM',fromCity:'Rome',fromStation:'Tiburtina Bus Terminal, 00185',to:'FLO',toCity:'Florence',toStation:'SITA Bus Station, 50123',dur:'~3h 15m',base:24.00},
+  {from:'AMS',fromCity:'Amsterdam',fromStation:'Amstel Station, 1096 JE',to:'ROT',toCity:'Rotterdam',toStation:'Rotterdam Centraal, 3013 AA',dur:'~1h 10m',base:14.50},
+];
+let swapped=false,selIdx=0,selPrice=22.50,selClass='Standard';
+
+function setJType(el,type){
+  document.querySelectorAll('.jtab').forEach(t=>t.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('ret-date').disabled=type==='one';
+  document.getElementById('ret-date').style.opacity=type==='one'?'.4':'1';
+}
+
+function updateRoute(){
+  swapped=false;
+  selIdx=parseInt(document.getElementById('sel-from').value)||0;
+  const r=routes[selIdx];
+  document.getElementById('from-code').textContent=r.from;
+  document.getElementById('from-city').textContent=r.fromCity;
+  document.getElementById('from-station').textContent=r.fromStation;
+  document.getElementById('to-code').textContent=r.to;
+  document.getElementById('to-city').textContent=r.toCity;
+  document.getElementById('to-station').textContent=r.toStation;
+  document.getElementById('route-dur').textContent=r.dur;
+  selPrice=r.base;
+}
+function updateRouteTo(){updateRoute();}
+function swapRoute(){
+  swapped=!swapped;
+  const r=routes[selIdx];
+  document.getElementById('from-code').textContent=swapped?r.to:r.from;
+  document.getElementById('from-city').textContent=swapped?r.toCity:r.fromCity;
+  document.getElementById('from-station').textContent=swapped?r.toStation:r.fromStation;
+  document.getElementById('to-code').textContent=swapped?r.from:r.to;
+  document.getElementById('to-city').textContent=swapped?r.fromCity:r.toCity;
+  document.getElementById('to-station').textContent=swapped?r.fromStation:r.toStation;
+  showToast('Route swapped');
+}
+
+function selClass(el,price,name){
+  document.querySelectorAll('.ccard').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+  selPrice=price;selClass=name;
+}
+
+const operators=['NX','FLX','MG','EX','NB'];
+const opNames=['National Express','Flixbus','Megabus','Eurolines','National Bus'];
+
+function doSearch(){
+  const r=routes[selIdx]||routes[0];
+  const dateEl=document.getElementById('dep-date');
+  const d=dateEl.value?new Date(dateEl.value):new Date();
+  const dl=d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
+  document.getElementById('r-title').textContent=`${swapped?r.toCity:r.fromCity} → ${swapped?r.fromCity:r.toCity}`;
+  document.getElementById('r-sub').textContent=`${dl} · ${selClass} · showing 5 departures`;
+  
+  const deps=[
+    {t:'06:15',arr:'08:35',op:0,stops:'Non-stop',price:selPrice,seats:8,badges:['fast']},
+    {t:'07:45',arr:'10:20',op:1,stops:'1 stop · Luton',price:(selPrice*.88).toFixed(2),seats:21,badges:['eco','best']},
+    {t:'09:00',arr:'11:20',op:2,stops:'Non-stop',price:(selPrice*1.1).toFixed(2),seats:14,badges:[]},
+    {t:'10:30',arr:'13:15',op:3,stops:'2 stops',price:(selPrice*.78).toFixed(2),seats:32,badges:['eco']},
+    {t:'12:00',arr:'14:20',op:4,stops:'Non-stop',price:(selPrice*1.55).toFixed(2),seats:5,badges:['fast']},
+  ];
+  const list=document.getElementById('r-list');
+  list.innerHTML=deps.map((d,i)=>`
+    <div class="rcard" onclick="selectDep(this,'${d.price}','${d.t}','${d.arr}')">
+      <div class="rc-operator">${operators[d.op]}</div>
+      <div class="rc-times">
+        <div class="rc-dep">${d.t}</div>
+        <div class="rc-arr">arr. ${d.arr}</div>
+      </div>
+      <div class="rc-mid">
+        <div class="rc-dur">${r.dur.replace('~','')}</div>
+        <div class="rc-stops">${d.stops}</div>
+        <div class="rc-badges">
+          ${d.badges.includes('fast')?'<span class="badge fast">Fastest</span>':''}
+          ${d.badges.includes('eco')?'<span class="badge eco">Lowest fare</span>':''}
+          ${d.badges.includes('best')?'<span class="badge best">Best value</span>':''}
+        </div>
+      </div>
+      <div class="rc-right">
+        <div class="rc-price">£${parseFloat(d.price).toFixed(2)}</div>
+        <div class="rc-seats">${d.seats} seats left</div>
+        <button class="rc-select">Select</button>
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('results').classList.add('show');
+  advStep(3);
+}
+
+function selectDep(el,price,dep,arr){
+  document.querySelectorAll('.rcard').forEach(r=>r.classList.remove('on'));
+  el.classList.add('on');
+  selPrice=parseFloat(price);
+  const r=routes[selIdx]||routes[0];
+  const total=(selPrice+1.50).toFixed(2);
+  document.getElementById('bs-route').textContent=`${swapped?r.toCity:r.fromCity} → ${swapped?r.fromCity:r.toCity}`;
+  document.getElementById('bs-detail').textContent=`Dep. ${dep} · Arr. ${arr} · ${selClass}`;
+  document.getElementById('bs-base').textContent='£'+selPrice.toFixed(2);
+  document.getElementById('bs-total').textContent='£'+total;
+  document.getElementById('bscard').classList.add('show');
+  generateQR();
+  advStep(4);
+}
+
+function advStep(n){
+  for(let i=1;i<=4;i++){
+    const s=document.getElementById('s'+i);
+    if(!s)continue;
+    s.className='step'+(i<n?' done':i===n?' cur':'');
+  }
+  for(let i=2;i<=3;i++){
+    const d=document.getElementById('d'+i);
+    if(d)d.className='step-dash'+(i<n?' done':'');
+  }
+}
+
+function generateQR(){
+  const p=[1,1,1,0,1,1,1,0,1,0,0,0,1,0,0,1,1,0,1,0,1,0,1,0,1,1,1,0,1,1,1,1,0,0,1,0,0,0,0,0,1,0,0,0,1,0,0,1,0,1,1,0,0,1,0,0,0,1,0,0,1,0,1,1];
+  document.getElementById('qr-g').innerHTML=p.map(c=>`<div class="qr-c" style="height:8px;background:${c?'#111827':'#fff'}"></div>`).join('');
+}
+
+function confirmPay(){
+  showToast('Booking confirmed — pass sent to your email');
+  document.querySelector('.pay-btn').textContent='Payment confirmed';
+  document.querySelector('.pay-btn').style.background='#0F5F2D';
+}
+
+function setSortActive(el){
+  document.querySelectorAll('.sort-pill').forEach(p=>p.classList.remove('on'));
+  el.classList.add('on');
+}
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+function animateBars(){
+  [[1,35,18],[2,20,14],[3,8,9]].forEach(([i,b,r])=>{
+    const v=b+Math.round(Math.random()*r);
+    document.getElementById('b'+i).style.width=v+'%';
+    document.getElementById('p'+i).textContent=v+'%';
+  });
+  document.getElementById('bcount').textContent=(18000+Math.round(Math.random()*800)).toLocaleString();
+}
+setInterval(animateBars,3500);
+
+document.getElementById('dep-date').valueAsDate=new Date();
+generateQR();
+</script>
