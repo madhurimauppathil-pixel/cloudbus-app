@@ -268,7 +268,7 @@ body{font-family:var(--ff);background:var(--bg);color:var(--ink);font-size:13px;
               <div class="cc-icon std"><svg viewBox="0 0 24 24" fill="none" stroke="#1D4ED8" stroke-width="2"><path d="M20 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v3M4 22h16M12 17v5M8 17v5M16 17v5M3 13h18v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4Z"/></svg></div>
               <div class="cc-check"><svg viewBox="0 0 10 10"><polyline points="2,5 4.5,7.5 8,3" stroke="white" stroke-width="1.5" fill="none"/></svg></div>
             </div>
-            <div class="cc-name">Standard</div><div class="cc-price">&#xA3;22.50</div>
+            <div class="cc-name">Standard</div><div class="cc-price">£22.50</div>
             <div class="cc-amenities"><span class="cc-pill">Reclining</span><span class="cc-pill">USB</span></div>
           </div>
           <div class="ccard" onclick="selClass(this,38.00,'Comfort')">
@@ -276,7 +276,7 @@ body{font-family:var(--ff);background:var(--bg);color:var(--ink);font-size:13px;
               <div class="cc-icon com"><svg viewBox="0 0 24 24" fill="none" stroke="#0D9488" stroke-width="2"><path d="M20 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v3M4 22h16M12 17v5M8 17v5M16 17v5M3 13h18v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4Z"/></svg></div>
               <div class="cc-check"><svg viewBox="0 0 10 10"><polyline points="2,5 4.5,7.5 8,3" stroke="white" stroke-width="1.5" fill="none"/></svg></div>
             </div>
-            <div class="cc-name">Comfort</div><div class="cc-price">&#xA3;38.00</div>
+            <div class="cc-name">Comfort</div><div class="cc-price">£38.00</div>
             <div class="cc-amenities"><span class="cc-pill">Legroom+</span><span class="cc-pill">Wi-Fi</span></div>
           </div>
           <div class="ccard" onclick="selClass(this,58.00,'Premium')">
@@ -284,7 +284,7 @@ body{font-family:var(--ff);background:var(--bg);color:var(--ink);font-size:13px;
               <div class="cc-icon pre"><svg viewBox="0 0 24 24" fill="none" stroke="#B45309" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
               <div class="cc-check"><svg viewBox="0 0 10 10"><polyline points="2,5 4.5,7.5 8,3" stroke="white" stroke-width="1.5" fill="none"/></svg></div>
             </div>
-            <div class="cc-name">Premium</div><div class="cc-price">&#xA3;58.00</div>
+            <div class="cc-name">Premium</div><div class="cc-price">£58.00</div>
             <div class="cc-amenities"><span class="cc-pill">Lounge</span><span class="cc-pill">Meal</span><span class="cc-pill">Wi-Fi</span></div>
           </div>
         </div>
@@ -344,11 +344,11 @@ body{font-family:var(--ff);background:var(--bg);color:var(--ink);font-size:13px;
       <div class="bs-route" id="bs-route">London to Manchester</div>
       <div class="bs-detail" id="bs-detail">--</div>
       <div class="bs-div"></div>
-      <div class="bs-row"><span>Base fare</span><span id="bs-base">&#xA3;22.50</span></div>
-      <div class="bs-row"><span>Booking fee</span><span>&#xA3;1.00</span></div>
-      <div class="bs-row"><span>Digital pass</span><span>&#xA3;0.50</span></div>
+      <div class="bs-row"><span>Base fare</span><span id="bs-base">£22.50</span></div>
+      <div class="bs-row"><span>Booking fee</span><span>£1.00</span></div>
+      <div class="bs-row"><span>Digital pass</span><span>£0.50</span></div>
       <div class="bs-div"></div>
-      <div class="bs-row total"><span>Total</span><span id="bs-total">&#xA3;24.00</span></div>
+      <div class="bs-row total"><span>Total</span><span id="bs-total">£24.00</span></div>
       <div class="qr-box">
         <div class="qr-g" id="qr-g"></div>
         <div class="qr-lbl">Scan at boarding gate</div>
@@ -443,7 +443,7 @@ function doSearch(){
     if(dep.eco)html+='<span class="badge eco">Lowest fare</span>';
     if(dep.best)html+='<span class="badge best">Best value</span>';
     html+='</div></div>';
-    html+='<div class="rc-right"><div class="rc-price">&#xA3;'+p+'</div>';
+    html+='<div class="rc-right"><div class="rc-price">£'+p+'</div>';
     html+='<div class="rc-seats">'+dep.seats+' seats left</div>';
     html+='<button class="rc-select">Select</button></div></div>';
   }
@@ -460,8 +460,8 @@ function selectDep(el,price,dep,arr){
   var total=(selPrice+1.50).toFixed(2);
   document.getElementById('bs-route').textContent=(swapped?r.toCity:r.fromCity)+' to '+(swapped?r.fromCity:r.toCity);
   document.getElementById('bs-detail').textContent='Dep. '+dep+' - Arr. '+arr+' - '+selClassName;
-  document.getElementById('bs-base').textContent='&#xA3;'+selPrice.toFixed(2);
-  document.getElementById('bs-total').textContent='&#xA3;'+total;
+  document.getElementById('bs-base').textContent='£'+selPrice.toFixed(2);
+  document.getElementById('bs-total').textContent='£'+total;
   document.getElementById('bscard').classList.add('show');
   generateQR();
   advStep(4);
@@ -525,3 +525,4 @@ generateQR();
 </script>
 </body>
 </html>
+
